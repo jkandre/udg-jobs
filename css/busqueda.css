@@ -67,8 +67,45 @@
 }
 .detalle_resultado{
     background-color: #FFFFFF;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     width: 50%;
+    max-height: 73vh;
+    min-height: 73vh;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5vh;
+    padding: 1.3rem;
+    gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+.applyButton{
+    cursor: pointer;
+    border: 1px solid #F0A500;
+    color: #F0A500;
+    background-color: #FFFFFF;
+    height: 2.3rem;
+    width: 30%;
+    font-size: .9rem;
+    border-radius: .5rem;
+    align-self: center;
+    margin: 30px 0;
+    justify-self: end;
+}
+.applyButton:hover{
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.id_vacancy{
+    display: none;
+}
+.titulos{
+    font-weight: bold;
+}
+.vacante_descripcion{
+    text-align: justify;
 }
 .empleos_resultados{
     display: flex;
@@ -106,7 +143,7 @@
     font-weight: bold;
 }
 .empleos_resultados a p{
-    text-align: left;
+    text-align: justify;
 }
 .vacante_subtitulos{
     font-weight: bold;

@@ -1,156 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>udg-Jobs</title>
-    <!--Iconos Google-->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <!--Iconos fontawesome-->
-    <script
-      src="https://kit.fontawesome.com/4311011c35.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/busqueda.css" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
-    </style>
-  </head>
-  <body>
-    <div class="nav container">
-      <a class="nav_logo" href="index.html">
-        <img src="img/logo.png" alt="" />
-        <p>udg-Jobs</p>
-      </a>
-      <div class="nav_buscador">
-        <p id="welcome_user" class="sesion"></p>
-        <a href="perfil.html">Perfil</a>
-      </div>
-      <div class="nav_botones">
-        <form action="" method="post" id="logoutForm">
-          <button class="cerrarSesion">
-            <i class="fas fa-sign-out-alt"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="main">
-      <div class="empleos container">
-        <form class="empleos_busqueda" action="" method="post" id="searchForm">
-          <input type="hidden" name="id" value="1" />
-          <input
-            type="text"
-            placeholder="Ej. Sistemas informaticos, Quimico, etc..."
-            name="busqueda"
-          />
-          <button>Buscar</button>
-        </form>
-
-        <div class="empleos_orden">
-          <p>Ordenar por:</p>
-          <div class="orden_opciones">
-            <form action="" method="get">
-              <input type="hidden" name="id" value="1" />
-              <input type="hidden" name="busqAlg" value="1" />
-              <button type="submit" name="btnAlg">Algoritmo</button>
-            </form>
-            <form action="" method="get">
-              <input type="hidden" name="id" value="1" />
-              <input type="hidden" name="busqFecha" value="1" />
-              <button type="submit" name="btnFecha">Fecha</button>
-            </form>
-            <form action="" method="get">
-              <input type="hidden" name="id" value="1" />
-              <input type="hidden" name="busqSueldo" value="1" />
-              <button type="submit" name="btnSueldo">Sueldo</button>
-            </form>
-          </div>
-        </div>
-
-        <p>Resultados de la busqueda:</p>
-
-		<div class="resultados">
-			<div class="empleos_resultados" id="vacanciesDiv">
-				<!-- Agregando vacantes de forma dinamica -->
-
-
-				<a class="resultados_vacante">
-					<div class="nombreFecha">
-						<h3>Nombre vacante</h3>
-					</div>
-					<p class="vacante_subtitulos">Nombre empresa</p>
-						<p class="vacante_descripcion">Jornada</p>
-						<p class="vacante_descripcion">Paga</p>
-						<p class="vacante_descripcion">Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatibus deserunt nihil laboriosam velit, ducimus quam repudiandae tempora hic dignissimos corrupti ea! Porro suscipit adipisci molestiae illo accusamus excepturi autem.</p>
-				</a>
-
-				<a class="resultados_vacante">
-					<div class="nombreFecha">
-						<h3>Nombre vacante</h3>
-					</div>
-					<p class="vacante_subtitulos">Nombre empresa</p>
-						<p class="vacante_descripcion">Jornada</p>
-						<p class="vacante_descripcion">Paga</p>
-						<p class="vacante_descripcion">Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatibus deserunt nihil laboriosam velit, ducimus quam repudiandae tempora hic dignissimos corrupti ea! Porro suscipit adipisci molestiae illo accusamus excepturi autem.</p>
-				</a>
-
-				<a class="resultados_vacante">
-					<div class="nombreFecha">
-						<h3>Nombre vacante</h3>
-					</div>
-					<p class="vacante_subtitulos">Nombre empresa</p>
-						<p class="vacante_descripcion">Jornada</p>
-						<p class="vacante_descripcion">Paga</p>
-						<p class="vacante_descripcion">Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatibus deserunt nihil laboriosam velit, ducimus quam repudiandae tempora hic dignissimos corrupti ea! Porro suscipit adipisci molestiae illo accusamus excepturi autem.</p>
-				</a>
-
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>udg-Jobs</title>
+		<!--Iconos Google-->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<!--Iconos fontawesome-->
+		<script
+			src="https://kit.fontawesome.com/4311011c35.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/busqueda.css" />
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+		</style>
+	</head>
+	<body>
+		<div class="nav container">
+			<a class="nav_logo" href="index.html">
+				<img src="img/logo.png" alt="" />
+				<p>udg-Jobs</p>
+			</a>
+			<div class="nav_buscador">
+				<p id="welcome_user" class="sesion"></p>
+				<a href="perfil.html">Perfil</a>
 			</div>
+			<div class="nav_botones">
+				<form action="" method="post" id="logoutForm">
+					<button class="cerrarSesion">
+						<i class="fas fa-sign-out-alt"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="main">
+			<div class="empleos container">
+				<form class="empleos_busqueda" action="" method="post" id="searchForm">
+					<input type="hidden" name="id" value="1" />
+					<input
+						type="text"
+						placeholder="Ej. Sistemas informaticos, Quimico, etc..."
+						name="busqueda"
+					/>
+					<button>Buscar</button>
+				</form>
 
-			<div class="detalle_resultado">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione neque, provident labore et nulla rerum dolores aliquid dignissimos libero perspiciatis! Rem, pariatur blanditiis optio reiciendis officia accusantium distinctio. Deleniti, nostrum?
-				Quam mollitia reprehenderit itaque et quaerat, dolorem maxime molestiae similique fuga, sequi consequatur nesciunt nemo error. Culpa, in eveniet! Cupiditate laboriosam minima impedit eaque animi molestiae vero quaerat! Quasi, perferendis!
-				Necessitatibus magnam a aperiam, quasi doloremque magni asperiores. Rerum laborum commodi assumenda sequi maxime deleniti repellat debitis praesentium fuga! Repellendus magni sequi ipsam. Sit est veritatis quis maiores enim ipsum.
-				Autem, vero. Voluptate illo alias accusantium error recusandae, cum assumenda laborum maxime rerum necessitatibus autem earum et quam sed non odit ipsa soluta repudiandae, suscipit sapiente eveniet? Impedit, voluptatibus rem!
-				Ex velit ut, fuga sint ratione ad reprehenderit sunt blanditiis exercitationem, voluptatum quisquam veritatis voluptate beatae cupiditate similique incidunt laborum temporibus atque mollitia. Et temporibus minima impedit illum vel atque.</p>
+				<div class="empleos_orden">
+					<p>Ordenar por:</p>
+					<div class="orden_opciones">
+						<form action="" method="get">
+							<input type="hidden" name="id" value="1" />
+							<input type="hidden" name="busqAlg" value="1" />
+							<button type="submit" name="btnAlg">Algoritmo</button>
+						</form>
+						<form action="" method="get">
+							<input type="hidden" name="id" value="1" />
+							<input type="hidden" name="busqFecha" value="1" />
+							<button type="submit" name="btnFecha">Fecha</button>
+						</form>
+						<form action="" method="get">
+							<input type="hidden" name="id" value="1" />
+							<input type="hidden" name="busqSueldo" value="1" />
+							<button type="submit" name="btnSueldo">Sueldo</button>
+						</form>
+					</div>
+				</div>
+
+				<p>Resultados de la busqueda:</p>
+
+				<div class="resultados">
+					<div class="empleos_resultados" id="vacanciesDiv">
+						<!-- Agregando vacantes de forma dinamica -->
+
+						<!-- <a class="resultados_vacante">
+							<div class="nombreFecha">
+								<h3>Nombre vacante</h3>
+							</div>
+							<p class="vacante_subtitulos">Nombre empresa</p>
+							<p class="vacante_descripcion">Jornada</p>
+							<p class="vacante_descripcion">Paga</p>
+							<p class="vacante_descripcion">
+								Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Voluptas voluptatibus deserunt nihil laboriosam velit,
+								ducimus quam repudiandae tempora hic dignissimos corrupti ea!
+								Porro suscipit adipisci molestiae illo accusamus excepturi
+								autem.
+							</p>
+						</a>
+
+						<a class="resultados_vacante">
+							<div class="nombreFecha">
+								<h3>Nombre vacante</h3>
+							</div>
+							<p class="vacante_subtitulos">Nombre empresa</p>
+							<p class="vacante_descripcion">Jornada</p>
+							<p class="vacante_descripcion">Paga</p>
+							<p class="vacante_descripcion">
+								Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Voluptas voluptatibus deserunt nihil laboriosam velit,
+								ducimus quam repudiandae tempora hic dignissimos corrupti ea!
+								Porro suscipit adipisci molestiae illo accusamus excepturi
+								autem.
+							</p>
+						</a>
+
+						<a class="resultados_vacante">
+							<div class="nombreFecha">
+								<h3>Nombre vacante</h3>
+							</div>
+							<p class="vacante_subtitulos">Nombre empresa</p>
+							<p class="vacante_descripcion">Jornada</p>
+							<p class="vacante_descripcion">Paga</p>
+							<p class="vacante_descripcion">
+								Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Voluptas voluptatibus deserunt nihil laboriosam velit,
+								ducimus quam repudiandae tempora hic dignissimos corrupti ea!
+								Porro suscipit adipisci molestiae illo accusamus excepturi
+								autem.
+							</p>
+						</a> -->
+					</div>
+
+					<div class="detalle_resultado" id="vacancyDetail">
+						<h3 class="titulos"></h3>
+            <p class="vacante_subtitulos">Nombre empresa</p>
+            <p class="vacante_descripcion"></p>
+						<p class="vacante_descripcion"></p>
+						<p class="vacante_descripcion"></p>
+            <button class="applyButton">Aplica ahora!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer container">
+			<div class="footer_logo">
+				<img src="img/logo.png" alt="" />
+				<p>udg-Jobs</p>
+			</div>
+			<div class="footer_franja"></div>
+			<div class="footer_derechos">
+				<p>udg-Jobs. 2021</p>
 			</div>
 		</div>
 
-        
-      </div>
-    </div>
-    <div class="footer container">
-      <div class="footer_logo">
-        <img src="img/logo.png" alt="" />
-        <p>udg-Jobs</p>
-      </div>
-      <div class="footer_franja"></div>
-      <div class="footer_derechos">
-        <p>udg-Jobs. 2021</p>
-      </div>
-    </div>
-
-    <script type="module" src="search.js"></script>
-    <script src="base.js"></script>
-    <script>
-      var elements = document.getElementsByClassName("resultados_vacante");
-
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', (e)=>{
-
-          var elementSelected = document.getElementsByClassName("a_selected");
-          element[0].classList.remove("a_selected");
-
-
-          e.currentTarget.classList.add("a_selected");
-          // e.currentTarget.style.visibility = "hidden";
-        }, false);
-      }
-    </script>
-  </body>
+		<script type="module" src="search.js"></script>
+		<script src="base.js"></script>
+	</body>
 </html>
