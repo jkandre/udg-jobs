@@ -1,0 +1,113 @@
+.empleos{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.empleos .empleos_busqueda{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.empleos .empleos_busqueda input{
+    height: 2.3rem;
+    width: 25rem;
+    font-size: .9rem;
+    border: none;
+    padding-left: 2.5rem;
+    background: url(../icons/search_black_24dp.svg) #E7E7E7 no-repeat;
+    background-size: 1.5rem;
+    background-position: .8rem 50%;
+}
+.empleos .empleos_busqueda button{
+    cursor: pointer;
+    border: 1px solid #F0A500;
+    color: #F0A500;
+    background-color: #FFFFFF;
+    height: 2.3rem;
+    width: 7rem;
+    font-size: .9rem;
+    border-radius: .5rem;
+}
+.empleos .empleos_busqueda button:hover{
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.empleos_orden{
+    display: flex;
+    gap: 1rem;
+}
+.empleos_orden p{
+    display: flex;
+    align-items: center;
+}
+.empleos_orden .orden_opciones{
+    display: flex;
+    gap: .7rem;
+}
+.empleos_orden .orden_opciones button{
+    cursor: pointer;
+    border: 1px solid #2D4059;
+    color: #2D4059;
+    background-color: #FFFFFF;
+    height: 1.5rem;
+    width: 6rem;
+    font-size: .8rem;
+    border-radius: .3rem;
+}
+.empleos_orden .orden_opciones button:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}
+.resultados{
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+.detalle_resultado{
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    width: 50%;
+}
+.empleos_resultados{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    gap: 2rem;
+    align-items: center;
+}
+.empleos_resultados a{
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    justify-content: flex-start;
+    padding: 1.3rem;
+    overflow: hidden;
+    text-decoration: none;
+}
+.empleos_resultados a:hover{
+    border: 1px solid #F0A500;
+    cursor: pointer;
+}
+.a_selected{
+    border: 1px solid #F0A500;
+}
+.empleos_resultados a .nombreFecha{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.empleos_resultados a h3{
+    font-weight: bold;
+}
+.empleos_resultados a p{
+    text-align: left;
+}
+.vacante_subtitulos{
+    font-weight: bold;
+}

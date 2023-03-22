@@ -1,0 +1,149 @@
+.usuario{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.datos{
+    width: 80%;
+    margin: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: grid;
+    grid-template-columns: max-content 70%;
+    gap: 2rem;
+    align-items: center;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border: none;
+}
+.foto img{
+    height: 10vh;
+}
+.preferencias{
+    width: 80%;
+    margin: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border: none;
+}
+.preferencias form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid #F0A500;
+    background-color: #FFFFFF;
+    padding: 3rem;
+}
+.preferencias form>div{
+    width: 80%;
+}
+#mapa{
+    width: 100%;
+    height: 20rem;
+}
+.preferencias form input{
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+}
+.mapaUser{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.mapaUser input{
+    height: 2.3rem;
+    width: 50%;
+}
+.coordenadas{
+    display: flex;
+    gap: 1rem;
+}
+.jornadaUser{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.jornadaUser>div{
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+.importancia{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.importancia>div{
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+.botones{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+.botones button{
+    cursor: pointer;
+    border: none;
+    height: 2.3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.botones button:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}
+
+
+#topics{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.pairTopics{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.pairTopics > input{
+    width: 30%;
+    height: 2.3rem;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+}
+#btnAddTopic{
+    background-color: rgb(60, 119, 0);
+    width: 250px;
+}
+#btnAddTopic:hover{
+    background-color: rgb(44, 68, 21);
+}
+
+#btnDeleteTopic{
+    background-color: rgb(189, 0, 0);
+    width: 250px;
+}
+#btnDeleteTopic:hover{
+    background-color: rgb(112, 18, 18);;
+}

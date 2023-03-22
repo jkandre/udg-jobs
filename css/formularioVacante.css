@@ -1,0 +1,105 @@
+.formVacante{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: calc(100vh - 11.5rem);
+    background-image: url(../img/registrarVacante.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.formVacante form{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid #F0A500;
+    background-color: #FFFFFF;
+    padding: 3rem;
+}
+.formVacante form h3{
+    font-weight: 500;
+}
+.formVacante form input{
+    height: 2.3rem;
+    width: 70%;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+}
+.formVacante form>div{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.formVacante .jornada>div{
+    width: 100%;
+    display: flex;
+}
+.formVacante .jornada>div>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+.formVacante .coordenadas{
+    display: flex;
+    flex-direction: row;
+}
+#mapa{
+    width: 100%;
+    height: 20rem;
+}
+.formVacante form>div>textarea{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: .9rem;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 10vh;
+    max-height: 10vh;
+    border: 1px solid #F0A500;
+}
+.botonesForm{
+    justify-content: center;
+    align-items: center;
+}
+.botonesForm button{
+    cursor: pointer;
+    border: none;
+    height: 2.3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.botonesForm button:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}
+.botonesForm a{
+    cursor: pointer;
+    border: none;
+    height: 2.3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    background-color: #FFFFFF;
+    color: #F0A500;
+    border: 1px solid #F0A500;
+}
+.botonesForm a:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}

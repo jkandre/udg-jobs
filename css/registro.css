@@ -1,0 +1,101 @@
+.registro{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 2rem;
+    margin: auto 0;
+}
+.registro .registro_imagen{
+    width: 100%;
+    height: 70vh;
+    background-image: url(../img/registro.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.registro_imagen::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+.registro_imagen .registroEmpresa{
+    width: 50%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+.registro_imagen .registroEmpresa>h1{
+    color: #FFFFFF;
+    text-align: center;
+}
+.registro_imagen .registroEmpresa>a{
+    width: 10rem;
+    cursor: pointer;
+    font-weight: 500;
+    border: 1px solid #F0A500;
+    color: #F0A500;
+    background-color: #FFFFFF;
+}
+.registro_imagen .registroEmpresa>a:hover{
+    cursor: pointer;
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.registro .registro_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.registro .registro_form form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+    
+    border: 1px solid #F0A500;
+    padding: 3rem;
+    width: 60%;
+}
+.registro .registro_form form h3{
+    font-weight: 500;
+}
+.registro .registro_nombres{
+    display: flex;
+    gap: 1rem;
+}
+.registro .registro_form form input{
+    height: 2.3rem;
+    width: 100%;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+}
+.registro .registro_form form button{
+    cursor: pointer;
+    border: none;
+    height: 2.3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.registro .registro_form form button:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>udg-Jobs</title>
+		<!--Iconos Google-->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<!--Iconos fontawesome-->
+		<script
+			src="https://kit.fontawesome.com/4311011c35.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/perfil.css" />
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+		</style>
+
+		<!--API de google-->
+		<script
+			type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=&callback=iniciarMapa"
+		></script>
+	</head>
+	<body onload="iniciarMapa()">
+		<div class="nav container">
+			<a class="nav_logo" href="#">
+				<img src="img/logo.png" alt="" />
+				<p>udg-Jobs</p>
+			</a>
+			<div class="nav_buscador">
+				<p class="sesion" id="username">Bienvenido:</p>
+				<a href="busqueda.html">Busqueda</a>
+			</div>
+			<div class="nav_botones">
+				<form action="" method="post" id="logoutForm">
+					<button class="cerrarSesion">
+						<i class="fas fa-sign-out-alt"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="main">
+			<div class="usuario container">
+				<div class="datos container">
+					<div class="foto">
+						<img src="img/user.png" alt="" />
+					</div>
+					<div class="personal">
+						<h2 id="name_profile">Nombre:</h2>
+						<h3 id="mail_profile">Correo:</h3>
+					</div>
+				</div>
+				<div class="preferencias container">
+					<form action="" method="post" id="formPesos">
+						<div id="topics">
+							<div class="pairTopics">
+                                <select id="topic_1"></select>
+                            
+                                <input type="number" name="rateTopic_1" placeholder="Dominio del 0-10" min="0" max="10" required/>
+                            </div>
+						</div>
+
+						<div class="botones">
+							<button id="btnAddTopic" type="" name="" class="btn">
+								Agregar conocimiento
+							</button>
+                            <button id="btnDeleteTopic" type="" name="" class="btn">
+								Eliminar ultimo
+							</button>
+							<button type="submit" name="btnPesos" class="btn">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer container">
+			<div class="footer_logo">
+				<img src="img/logo.png" alt="" />
+				<p>udg-Jobs</p>
+			</div>
+			<div class="footer_franja"></div>
+			<div class="footer_derechos">
+				<p>udg-Jobs. 2021</p>
+			</div>
+		</div>
+
+		<script type="module" src="profile.js"></script>
+		<script src="base.js"></script>
+	</body>
+</html>

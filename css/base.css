@@ -1,0 +1,151 @@
+.container{
+    padding: 0 10vw;
+}       
+*{  box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #2D4059;
+}
+body{
+    background-color: #FFFFFF;
+    font-size: 16px;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    /*overflow-x: hidden;*/
+}
+.main{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+.nav{
+    height: 3.5rem;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    gap: 1rem;
+    border-bottom: 1px solid #2D4059;
+}
+.nav .nav_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+.nav .nav_logo img{
+    height: 2.5rem;
+    margin-right: 1rem;
+}
+.nav .nav_logo p{
+    font-weight: 300;
+    font-size: 1.2rem;
+}  
+.nav .nav_botones{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}                       
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    height: 2.3rem;
+    width: 7rem;
+    font-weight: 400;
+    font-size: .9rem;
+    border-radius: .5rem;
+    text-decoration: none;
+}
+.botonAzul{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}
+.botonAzul:hover{
+    border: 1px solid #2D4059;
+    background-color: #FFFFFF;
+    color: #2D4059;
+}
+.botonBlanco{
+    border: 1px solid #2D4059;
+    background-color: #FFFFFF;
+    color: #2D4059;
+}
+.botonBlanco:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
+}
+.nav .nav_buscador{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: end;
+    height: 100%;
+}
+.nav .nav_buscador input{
+    height: 2.3rem;
+    font-weight: 400;
+    font-size: .9rem;
+    border: none;
+    padding-left: 2.5rem;
+    background: url(../icons/search_black_24dp.svg) #E7E7E7 no-repeat;
+    background-size: 1.5rem;
+    background-position: .8rem 50%;
+}
+.sesion{
+    margin-right: 3rem;
+}
+.cerrarSesion{
+    cursor: pointer;
+    color: #2D4059;
+    border: none;
+    background-color: #FFFFFF;
+}
+.cerrarSesion i{
+    font-size: 1.5rem;
+}
+.footer{
+    height: 8rem;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: max-content max-content max-content;
+    justify-content: center;
+    align-content: center;
+    gap: 1rem;
+}
+.footer .footer_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer .footer_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}  
+.footer .footer_logo img{
+    height: 2.5rem;
+    margin-right: 1rem;
+}
+.footer .footer_logo p{
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+.footer .footer_franja{
+    display: block;
+    height: 1px;
+    background-color: #858585;
+    width: 60vw;
+}
+.footer .footer_derechos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
