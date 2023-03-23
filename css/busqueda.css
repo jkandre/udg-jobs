@@ -78,7 +78,6 @@
     gap: .5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     overflow-y: scroll;
 }
 .applyButton{
@@ -92,7 +91,7 @@
     border-radius: .5rem;
     align-self: center;
     margin: 30px 0;
-    justify-self: end;
+    margin-top: auto
 }
 .applyButton:hover{
     background-color: #F0A500;
