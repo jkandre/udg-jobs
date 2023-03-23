@@ -30,8 +30,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export const saveUser = (username, name, lastname, mail, pass) => {
-	addDoc(collection(db, "users"), {
+export const saveUser = async (username, name, lastname, mail, pass) => {
+	await addDoc(collection(db, "users"), {
 		username,
 		name,
 		lastname,
@@ -62,8 +62,8 @@ export const getTopics = async () => {
 	return await getDocs(collection(db, "topics"));
 };
 
-export const saveTopic = (username, topicName, topicRate) => {
-	addDoc(collection(db, "topic_users"), {
+export const saveTopic = async (username, topicName, topicRate) => {
+	await addDoc(collection(db, "topic_users"), {
 		username,
 		topicName,
 		topicRate
@@ -90,5 +90,59 @@ export const getVacants = async (limit = null, search = null) => {
 	return await getDocs(q);
 };
 
+export const validateMailCompany = async (companyMail) => {
+	const q = query(collection(db, "companies"), where("mail", "==", companyMail));
 
-// const q = query(citiesRef, where("population", ">", 100000), orderBy("population"), limit(2));
+	return await getDocs(q);
+};
+
+export const validateIDCompany = async (idCompany) => {
+	const q = query(collection(db, "companies"), where("idCompany", "==", idCompany));
+
+	return await getDocs(q);
+};
+
+export const saveCompany = async (name, mail, adress, pass, idCompany) => {
+	await addDoc(collection(db, "companies"), {
+		name,
+		mail,
+		adress,
+		pass,
+		idCompany
+	});
+};
+
+export const getCompanyID = async () => {
+	const q = query(collection(db, "companies"), orderBy("idCompany", "desc"), limit(1));
+
+	return await getDocs(q);
+};
+
+export const loginCompany = async (mail, pass) => {
+	const q = query(collection(db, "companies"), where("mail", "==", mail), where("pass", "==", pass));
+
+	return await getDocs(q);
+};
+
+export const getVacantsPublished = async (idCompany) => {
+	const q = query(collection(db, "vacancy"), where("idCompany", "==", idCompany));
+	
+	return await getDocs(q);
+};
+
+export const getVacancyID = async () => {
+	const q = query(collection(db, "vacancy"), orderBy("idVacancy", "desc"), limit(1));
+
+	return await getDocs(q);
+};
+
+export const saveVacancy = async (title, payment, time, description, idVacancy, idCompany) => {
+	await addDoc(collection(db, "vacancy"), {
+		title,
+		payment,
+		time,
+		description,
+		idVacancy,
+		idCompany
+	});
+};

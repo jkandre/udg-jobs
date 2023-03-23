@@ -1,13 +1,15 @@
 import { getVacants } from "./firebase.js";
 
-// if (sessionStorage.getItem("session") != null) {
-// 	if (
-// 		JSON.parse(sessionStorage.getItem("session")).username == "" ||
-// 		JSON.parse(sessionStorage.getItem("session")).username == null
-// 	) {
-// 		window.location.href = "http://127.0.0.1:5500/index.html";
-// 	}
-// }
+if (sessionStorage.getItem("session") != null) {
+	if (
+		JSON.parse(sessionStorage.getItem("session")).username == "" ||
+		JSON.parse(sessionStorage.getItem("session")).username == null
+	) {
+		window.location.href = "index.html";
+	}
+}else{
+	window.location.href = "index.html";
+}
 
 const welcome_user = document.getElementById("welcome_user");
 // welcome_user.innerHTML = "Bienvenido: " + JSON.parse(sessionStorage.getItem("session")).username;

@@ -5,8 +5,10 @@ if (sessionStorage.getItem("session") != null) {
 		JSON.parse(sessionStorage.getItem("session")).username == "" ||
 		JSON.parse(sessionStorage.getItem("session")).username == null
 	) {
-		window.location.href = "http://127.0.0.1:5500/index.html";
+		window.location.href = "index.html";
 	}
+}else{
+	window.location.href = "index.html";
 }
 
 const username = document.getElementById("username");
@@ -43,7 +45,7 @@ formPesos.addEventListener("submit", async (e) => {
 	}
 
 	setTimeout(function () {
-		window.location.href = "http://127.0.0.1:5500/perfil.html";
+		window.location.href = "perfil.html";
 	}, 300);
 });
 
@@ -52,7 +54,7 @@ logoutForm.addEventListener("submit", async (e) => {
 
 	sessionStorage.clear();
 
-	window.location.href = "http://127.0.0.1:5500/index.html";
+	window.location.href = "index.html";
 });
 
 btnAddTopic.addEventListener("click", async (e) => {

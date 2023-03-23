@@ -5,17 +5,31 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
-.vacantes a:nth-child(1){
+.vacantes_btn{
     cursor: pointer;
     background-color: #F0A500;
     color: #FFFFFF;
     font-weight: bold;
     width: 10rem;
 }
-.vacantes a:nth-child(1):hover{
+.vacantes_btn:hover{
     background-color: #FF0000;
 }
 .vacante{
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    justify-content: flex-start;
+    padding: 1.3rem;
+    height: 25vh;
+    overflow: hidden;
+    text-decoration: none;
+}
+.vacantePublicada{
     background-color: #FFFFFF;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     border: none;
@@ -37,4 +51,14 @@
 }
 .vacante_subtitulos{
     font-weight: bold;
+}
+.id_vacancy{
+    display: none;
+}
+#vacanciesDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }

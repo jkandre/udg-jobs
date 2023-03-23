@@ -1,13 +1,22 @@
 import { saveUser, validateUser, validateMail } from "./firebase.js";
 
-if(sessionStorage.getItem('session') != null){
-	if(JSON.parse(sessionStorage.getItem('session')).username != "" || JSON.parse(sessionStorage.getItem('session')).username != null){
-		window.location.href = "http://127.0.0.1:5500/perfil.html";
+if (sessionStorage.getItem("session") != null) {
+	if (
+		JSON.parse(sessionStorage.getItem("session")).username != "" &&
+		JSON.parse(sessionStorage.getItem("session")).username != null
+	) {
+		window.location.href = "perfil.html";
+	}
+
+	if (
+		JSON.parse(sessionStorage.getItem("session")).idCompany != "" &&
+		JSON.parse(sessionStorage.getItem("session")).idCompany != null
+	) {
+		window.location.href = "empresaHome.html";
 	}
 }
 
 const registerForm = document.getElementById("registerForm");
-
 
 registerForm.addEventListener("submit", async (e) => {
 	e.preventDefault();
@@ -54,5 +63,5 @@ registerForm.addEventListener("submit", async (e) => {
 		})
 	);
 
-	setTimeout( function() { window.location.href = "http://127.0.0.1:5500/perfil.html"; }, 300 );
+	setTimeout( function() { window.location.href = "perfil.html"; }, 300 );
 });
