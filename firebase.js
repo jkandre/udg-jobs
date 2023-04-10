@@ -8,7 +8,10 @@ import {
 	query,
 	where,
 	orderBy, 
-	limit 
+	limit,
+	updateDoc,
+	doc,
+	writeBatch
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -80,11 +83,11 @@ export const getVacants = async (limit = null, search = null) => {
 	let q;
 
 	if(search != null){
-		q = query(collection(db, "vacancy"), where("title", "==", search));
+		q = query(collection(db, "vacancy"), where("title", "==", search), where("isActive", "==", true));
 	}else if(limit != null){
-		q = query(collection(db, "vacancy"), orderBy("payment"));
+		q = query(collection(db, "vacancy"), where("isActive", "==", true), orderBy("payment"));
 	}else{
-		q = query(collection(db, "vacancy"), orderBy("payment"));
+		q = query(collection(db, "vacancy"), where("isActive", "==", true), orderBy("payment"));
 	}
 	
 	return await getDocs(q);
@@ -125,7 +128,7 @@ export const loginCompany = async (mail, pass) => {
 };
 
 export const getVacantsPublished = async (idCompany) => {
-	const q = query(collection(db, "vacancy"), where("idCompany", "==", idCompany));
+	const q = query(collection(db, "vacancy"), where("idCompany", "==", idCompany), where("isActive", "==", true));
 	
 	return await getDocs(q);
 };
@@ -143,6 +146,52 @@ export const saveVacancy = async (title, payment, time, description, idVacancy, 
 		time,
 		description,
 		idVacancy,
-		idCompany
+		idCompany,
+		isActive: true
 	});
+};
+
+export const disableVacancy = async (idVacancy) => {
+	const q = query(collection(db, "vacancy"), where("idVacancy", "==", idVacancy));
+
+	const vacancyId = await getDocs(q);
+
+	if(vacancyId.docs.length > 0){
+		const vacancyRef = doc(db, "vacancy", vacancyId.docs[0].id);
+
+		return await updateDoc(vacancyRef, {
+			isActive: false
+		});
+	}
+};
+
+export const getProfessions = async () => {
+	const q = query(collection(db, "profession"));
+
+	return await getDocs(q);
+};
+
+export const addTopic = async (idProfession, topicName) => {
+	await addDoc(collection(db, "topics"), {
+		idProfession,
+		topicName
+	});
+};
+
+export const getProfessionsTopics = async (idProfession) => {
+	const q = query(collection(db, "topics"), where("idProfession", "==", idProfession));
+
+	return await getDocs(q);
+};
+
+export const saveVacancyRequirements = async (arrayRequirements) => {
+	const batch = writeBatch(db);
+
+	arrayRequirements.forEach((document) => {
+		const docRef = doc(collection(db, "vacancyRequirements"))
+		batch.set(docRef, document);
+	});
+	
+	// Commit the batch
+	await batch.commit();
 };

@@ -25,7 +25,8 @@
     gap: .5rem;
     justify-content: flex-start;
     padding: 1.3rem;
-    height: 25vh;
+    min-height: 25vh;
+    max-height: 35vh;
     overflow: hidden;
     text-decoration: none;
 }
@@ -61,4 +62,22 @@
     gap: 1.2rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+}
+.btnDeleteTopic{
+    background-color: rgb(189, 0, 0);
+    width: 250px;
+    min-height: 35px;
+    color: #FFFFFF;
+    align-self: flex-end;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.btnDeleteTopic:hover{
+    background-color: rgb(112, 18, 18);
+    cursor: pointer;
+}
+.vacante_descripcion{
+    overflow-x: hidden;
+    overflow-y: scroll;
 }

@@ -1,4 +1,4 @@
-import { getVacantsPublished } from "./firebase.js";
+import { getVacantsPublished, disableVacancy } from "./firebase.js";
 
 if (sessionStorage.getItem("session") != null) {
 	if (
@@ -28,26 +28,47 @@ window.addEventListener("DOMContentLoaded", async () => {
 		title.innerHTML = querySnapshot.docs[i].data().title;
 
 		const payment = document.createElement("p");
-		payment.classList.add("vacante_descripcion");
+		// payment.classList.add("vacante_descripcion");
 		payment.innerHTML = "$ " + querySnapshot.docs[i].data().payment;
 
 		const time = document.createElement("p");
-		time.classList.add("vacante_descripcion");
+		// time.classList.add("vacante_descripcion");
 		time.innerHTML = "Jornada: " + querySnapshot.docs[i].data().time + " horas";
 
 		const desc = document.createElement("p");
 		desc.classList.add("vacante_descripcion");
 		desc.innerHTML = "Descripcion: " + querySnapshot.docs[i].data().description;
 
+		const btnEliminar = document.createElement("button");
+		btnEliminar.classList.add("btnDeleteTopic");
+		btnEliminar.innerHTML = "Eliminar";
+
 		const idVacancy = document.createElement("p");
 		idVacancy.classList.add("id_vacancy");
 		idVacancy.innerHTML = querySnapshot.docs[i].data().idVacancy;
 
 		vacanciesDiv.appendChild(a);
-		a.appendChild(title);
 		a.appendChild(idVacancy);
+		a.appendChild(title);
 		a.appendChild(payment);
 		a.appendChild(time);
 		a.appendChild(desc);
+		a.appendChild(btnEliminar);
+	}
+
+	var elements = document.getElementsByClassName("btnDeleteTopic");
+
+	for (var i = 0; i < elements.length; i++) {
+		elements[i].addEventListener(
+			"click",
+			async (e) => {
+				const parent = e.target.parentNode;
+
+				await disableVacancy(parseInt(parent.firstChild.innerHTML));
+
+				parent.remove();
+			},
+			false
+		);
 	}
 });
