@@ -195,9 +195,17 @@ export const saveVacancyRequirements = async (arrayRequirements) => {
 	await batch.commit();
 };
 
-export const saveUserKnowledge = async (arrayKnowledge) => {
+export const saveUserKnowledge = async (arrayKnowledge, username) => {
+	const q = query(collection(db, "topic_users"), where("username", "==", username));
+	const userTopics = await getDocs(q);
+
 	const batch = writeBatch(db);
 
+	for (let i = 0; i < userTopics.docs.length; i++) {
+		const userTopicRef = doc(db, "topic_users", userTopics.docs[i].id);
+		batch.delete(userTopicRef);
+	}
+	
 	arrayKnowledge.forEach((document) => {
 		const docRef = doc(collection(db, "topic_users"))
 		batch.set(docRef, document);
@@ -207,8 +215,20 @@ export const saveUserKnowledge = async (arrayKnowledge) => {
 	await batch.commit();
 };
 export const saveProfile = async (username, userProfession) => {
-	await addDoc(collection(db, "userProfile"), {
-		username,
-		userProfession
-	});
+	const q = query(collection(db, "userProfile"), where("username", "==", username));
+
+	const userProfile = await getDocs(q);
+
+	if(userProfile.docs.length > 0){
+		const userRef = doc(db, "userProfile", userProfile.docs[0].id);
+
+		return await updateDoc(userRef, {
+			userProfession: userProfession
+		});
+	}else{
+		await addDoc(collection(db, "userProfile"), {
+			username,
+			userProfession
+		});
+	}
 };

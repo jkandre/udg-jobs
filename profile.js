@@ -74,10 +74,7 @@ formPesos.addEventListener("submit", async (e) => {
 		parseInt(formPesos["profession"].value)
 	);
 
-	await saveUserKnowledge(objTopics);
-
-	console.log(topicArray)
-	console.log(topicRate)
+	await saveUserKnowledge(objTopics, JSON.parse(sessionStorage.getItem("session")).username);
 });
 
 
