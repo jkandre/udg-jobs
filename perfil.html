@@ -22,12 +22,9 @@
 		</style>
 
 		<!--API de google-->
-		<script
-			type="text/javascript"
-			src="https://maps.googleapis.com/maps/api/js?key=&callback=iniciarMapa"
-		></script>
+		
 	</head>
-	<body onload="iniciarMapa()">
+	<body>
 		<div class="nav container">
 			<a class="nav_logo" href="#">
 				<img src="img/logo.png" alt="" />
@@ -58,23 +55,47 @@
 					</div>
 				</div>
 				<div class="preferencias container">
-					<form action="" method="post" id="formPesos">
-						<div id="topics">
-							<div class="pairTopics">
-                                <select id="topic_1"></select>
-                            
-                                <input type="number" name="rateTopic_1" placeholder="Dominio del 0-10" min="0" max="10" required/>
-                            </div>
+					<form id="formPesos">
+						
+						<select name="profession" id="selecterProfession">
+							<!-- <option value="value1">Value 1</option> -->
+						</select>
+						<div class="knowledge">
+	
+							<div class="userKnowledge">
+								<div id="topics">
+									<!-- <div class="pairTopics">
+										<select id="topic_1">
+											<option value="1">1</option>
+											<option value="2">2</option>
+										</select>
+	
+										<input
+											type="number"
+											name="rateTopic_1"
+											placeholder="Dominio del 0-10"
+											min="0"
+											max="10"
+											required
+										/>
+									</div> -->
+								</div>
+	
+								<div class="botones">
+									<button id="btnAddTopic" type="" name="" class="btn">
+										Agregar conocimiento
+									</button>
+									<button id="btnDeleteTopic" type="" name="" class="btn">
+										Eliminar ultimo
+									</button>
+								</div>
+							</div>
+	
+	
 						</div>
-
-						<div class="botones">
-							<button id="btnAddTopic" type="" name="" class="btn">
-								Agregar conocimiento
-							</button>
-                            <button id="btnDeleteTopic" type="" name="" class="btn">
-								Eliminar ultimo
-							</button>
-							<button type="submit" name="btnPesos" class="btn">Guardar</button>
+						
+						<div class="botonesForm">
+							<button type="submit" name="btnRegVacante">Guardar Perfil</button>
 						</div>
 					</form>
 				</div>

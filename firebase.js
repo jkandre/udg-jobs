@@ -87,9 +87,8 @@ export const getVacants = async (limit = null, search = null) => {
 	}else if(limit != null){
 		q = query(collection(db, "vacancy"), where("isActive", "==", true), orderBy("payment"));
 	}else{
-		q = query(collection(db, "vacancy"), where("isActive", "==", true), orderBy("payment"));
+		q = query(collection(db, "vacancy"), where("isActive", "==", true));
 	}
-	
 	return await getDocs(q);
 };
 
@@ -194,4 +193,22 @@ export const saveVacancyRequirements = async (arrayRequirements) => {
 	
 	// Commit the batch
 	await batch.commit();
+};
+
+export const saveUserKnowledge = async (arrayKnowledge) => {
+	const batch = writeBatch(db);
+
+	arrayKnowledge.forEach((document) => {
+		const docRef = doc(collection(db, "topic_users"))
+		batch.set(docRef, document);
+	});
+	
+	// Commit the batch
+	await batch.commit();
+};
+export const saveProfile = async (username, userProfession) => {
+	await addDoc(collection(db, "userProfile"), {
+		username,
+		userProfession
+	});
 };

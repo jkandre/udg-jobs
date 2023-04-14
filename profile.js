@@ -1,4 +1,9 @@
-import { getTopics, saveTopic, getUserTopics } from "./firebase.js";
+import { 
+		getProfessions, 
+		getProfessionsTopics,
+		saveUserKnowledge,
+		saveProfile,
+} from "./firebase.js";
 
 if (sessionStorage.getItem("session") != null) {
 	if (
@@ -7,7 +12,7 @@ if (sessionStorage.getItem("session") != null) {
 	) {
 		window.location.href = "index.html";
 	}
-}else{
+} else {
 	window.location.href = "index.html";
 }
 
@@ -17,50 +22,137 @@ username.innerHTML =
 
 const name_profile = document.getElementById("name_profile");
 name_profile.innerHTML =
-	"Nombre: " + JSON.parse(sessionStorage.getItem("session")).name + " " + JSON.parse(sessionStorage.getItem("session")).lastname;
+	"Nombre: " +
+	JSON.parse(sessionStorage.getItem("session")).name +
+	" " +
+	JSON.parse(sessionStorage.getItem("session")).lastname;
 const mail_profile = document.getElementById("mail_profile");
 mail_profile.innerHTML =
 	"Correo: " + JSON.parse(sessionStorage.getItem("session")).mail;
 
-const btnAddTopic = document.getElementById("btnAddTopic");
-const btnDeleteTopic = document.getElementById("btnDeleteTopic");
+const formPesos = document.getElementById("formPesos");
 
+const selectorProfession = document.getElementById("selecterProfession");
 const topics = document.getElementById("topics");
 let querySnapshotTopics;
-
-const formPesos = document.getElementById("formPesos");
+const btnAddTopic = document.getElementById("btnAddTopic");
+const btnDeleteTopic = document.getElementById("btnDeleteTopic");
 
 formPesos.addEventListener("submit", async (e) => {
 	e.preventDefault();
 
-	let childrensLength = topics.childElementCount;
-	let username = JSON.parse(sessionStorage.getItem("session")).username;
+	let topicArray = [];
+	let topicRate = [];
 
-	for (let i = 0; i < childrensLength; i++) {
-		await saveTopic(
-			username,
-			document.getElementById("topic_" + (i + 1)).value,
-			formPesos["rateTopic_" + (i + 1)].value
-		);
+	let childrensLength = topics.childElementCount;
+	for (let index = 0; index < childrensLength; index++) {
+		const select = document.getElementById("topic_"+(index+1));
+		const idTopic = select.value;
+
+		if(topicArray.includes(parseInt(idTopic))){
+			alert(
+				"No puedes repetir los topicos requeridos, verifica e intentalo de nuevo"
+			);
+			return;
+		}else{
+			topicArray.push(parseInt(idTopic));
+			topicRate.push(parseInt(formPesos["rateTopic_"+(index+1)].value));
+		}
 	}
 
-	setTimeout(function () {
-		window.location.href = "perfil.html";
-	}, 300);
+	let objTopics = [];
+	for (let index = 0; index < topicArray.length; index++) {
+		objTopics.push({
+			idTopic: topicArray[index],
+			knowledge: topicRate[index], 
+			username: JSON.parse(sessionStorage.getItem("session")).username
+		})
+	}
+
+	await saveProfile(
+		JSON.parse(sessionStorage.getItem("session")).username,
+		parseInt(formPesos["profession"].value)
+	);
+
+	await saveUserKnowledge(objTopics);
+
+	console.log(topicArray)
+	console.log(topicRate)
 });
 
-logoutForm.addEventListener("submit", async (e) => {
-	e.preventDefault();
 
-	sessionStorage.clear();
+window.addEventListener("DOMContentLoaded", async () => {
+	const selectorProfession = document.getElementById("selecterProfession");
+	const querySnapshotProfession = await getProfessions();
+	if (!querySnapshotProfession.docs.length > 0) {
+		alert(
+			"Ocurrrio un error al obtener las profesiones registradas, contacte con el administrador"
+		);
+		return false;
+	}
 
-	window.location.href = "index.html";
+	for (let i = 0; i < querySnapshotProfession.docs.length; i++) {
+		// <option value="value1">Value 1</option>
+		const option = document.createElement("option");
+		option.setAttribute(
+			"value",
+			querySnapshotProfession.docs[i].data().professionId
+		);
+		option.innerHTML = querySnapshotProfession.docs[i].data().professionName;
+
+		if (i == 0) {
+			option.setAttribute("Selected", true);
+
+			querySnapshotTopics = await getProfessionsTopics(
+				parseInt(querySnapshotProfession.docs[i].data().professionId)
+			);
+			if (!querySnapshotTopics.docs.length > 0) {
+				alert(
+					"Ocurrrio un error al agregar la vacante, contacte con el administrador"
+				);
+				return false;
+			}
+
+			let childrensLength = topics.childElementCount;
+			const pairTopics = document.createElement("div");
+			pairTopics.classList.add("pairTopics");
+
+			const select = document.createElement("select");
+			select.setAttribute("id", "topic_" + (childrensLength + 1));
+
+			const input = document.createElement("input");
+			input.setAttribute("type", "number");
+			input.setAttribute("name", "rateTopic_" + (childrensLength + 1));
+			input.setAttribute("placeholder", "Dominio del 0-10");
+			input.setAttribute("min", "0");
+			input.setAttribute("max", "10");
+			input.setAttribute("required", "true");
+
+			topics.appendChild(pairTopics);
+			pairTopics.appendChild(select);
+			pairTopics.appendChild(input);
+
+			querySnapshotTopics.forEach((doc) => {
+				select.options[select.options.length] = new Option(
+					doc.data().topicName,
+					doc.data().idTopic
+				);
+			});
+		}
+
+		selectorProfession.appendChild(option);
+	}
 });
 
 btnAddTopic.addEventListener("click", async (e) => {
 	e.preventDefault();
 
 	let childrensLength = topics.childElementCount;
+
+	if (querySnapshotTopics.docs.length == childrensLength) {
+		alert("No hay mas topicos para agregar");
+		return false;
+	}
 
 	const pairTopics = document.createElement("div");
 	pairTopics.classList.add("pairTopics");
@@ -83,7 +175,7 @@ btnAddTopic.addEventListener("click", async (e) => {
 	querySnapshotTopics.forEach((doc) => {
 		select.options[select.options.length] = new Option(
 			doc.data().topicName,
-			doc.data().topicName
+			doc.data().idTopic
 		);
 	});
 });
@@ -100,61 +192,47 @@ btnDeleteTopic.addEventListener("click", async (e) => {
 	}
 });
 
-window.addEventListener("DOMContentLoaded", async () => {
+selectorProfession.addEventListener("change", async (e) => {
+	const profession = formPesos["profession"];
 
-	querySnapshotTopics = await getTopics();
-
-	const querySnapshot = await getUserTopics(
-		JSON.parse(sessionStorage.getItem("session")).username
+	querySnapshotTopics = await getProfessionsTopics(
+		parseInt(profession.value)
 	);
-	if (querySnapshot.docs.length > 0) {
 
+	while(topics.childElementCount > 0){
 		topics.removeChild(topics.lastElementChild);
-
-		for (let i = 0; i < querySnapshot.docs.length; i++) {
-			const pairTopics = document.createElement("div");
-			pairTopics.classList.add("pairTopics");
-
-			const select = document.createElement("select");
-			select.setAttribute("id", "topic_" + (i + 1));
-
-			const input = document.createElement("input");
-			input.setAttribute("type", "number");
-			input.setAttribute("name", "rateTopic_" + (i + 1));
-			input.setAttribute("placeholder", "Dominio del 0-10");
-			input.setAttribute("min", "0");
-			input.setAttribute("max", "10");
-			input.setAttribute("required", "true");
-			input.setAttribute("value", querySnapshot.docs[i].data().topicRate);
-
-			topics.appendChild(pairTopics);
-			pairTopics.appendChild(select);
-			pairTopics.appendChild(input);
-
-			querySnapshotTopics.forEach((doc) => {
-				select.options[select.options.length] = new Option(
-					doc.data().topicName,
-					doc.data().topicName
-				);
-
-				if(doc.data().topicName == querySnapshot.docs[i].data().topicName){
-					select.options[select.options.length-1].setAttribute("Selected", true);
-				}
-			});
-
-		}
-
-
-	} 
-	else 
-	{
-		const topic_1 = document.getElementById("topic_1");
-
-		querySnapshotTopics.forEach((doc) => {
-			topic_1.options[topic_1.options.length] = new Option(
-				doc.data().topicName,
-				doc.data().topicName
-			);
-		});
 	}
-});
+
+	if (!querySnapshotTopics.docs.length > 0) {
+		alert(
+			"Ocurrrio un error al agregar la vacante, contacte con el administrador"
+		);
+		return false;
+	}
+
+	let childrensLength = topics.childElementCount;
+	const pairTopics = document.createElement("div");
+	pairTopics.classList.add("pairTopics");
+
+	const select = document.createElement("select");
+	select.setAttribute("id", "topic_" + (childrensLength + 1));
+
+	const input = document.createElement("input");
+	input.setAttribute("type", "number");
+	input.setAttribute("name", "rateTopic_" + (childrensLength + 1));
+	input.setAttribute("placeholder", "Dominio del 0-10");
+	input.setAttribute("min", "0");
+	input.setAttribute("max", "10");
+	input.setAttribute("required", "true");
+
+	topics.appendChild(pairTopics);
+	pairTopics.appendChild(select);
+	pairTopics.appendChild(input);
+
+	querySnapshotTopics.forEach((doc) => {
+		select.options[select.options.length] = new Option(
+			doc.data().topicName,
+			doc.data().idTopic
+		);
+	});
+})

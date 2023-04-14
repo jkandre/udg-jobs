@@ -22,14 +22,17 @@
 .foto img{
     height: 10vh;
 }
+
 .preferencias{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80%;
+
     margin: auto;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    
     background-color: #FFFFFF;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     border: none;
@@ -45,57 +48,34 @@
     background-color: #FFFFFF;
     padding: 3rem;
 }
-.preferencias form>div{
-    width: 80%;
-}
-#mapa{
-    width: 100%;
-    height: 20rem;
-}
 .preferencias form input{
+    height: 2.3rem;
+    width: 70%;
     font-weight: 400;
     font-size: .9rem;
     padding-left: 1rem;
     border: 1px solid #F0A500;
 }
-.mapaUser{
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-}
-.mapaUser input{
+.preferencias form>select{
     height: 2.3rem;
-    width: 50%;
+    width: 70%;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
 }
-.coordenadas{
+.preferencias form>div{
+    width: 70%;
     display: flex;
-    gap: 1rem;
-}
-.jornadaUser{
-    display: flex;
-    gap: 1rem;
     flex-direction: column;
-}
-.jornadaUser>div{
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-}
-.importancia{
-    display: flex;
     gap: 1rem;
-    flex-direction: column;
-}
-.importancia>div{
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
 }
 .botones{
     display: flex;
     justify-content: center;
     margin-top: 2rem;
     gap: 2rem;
+    overflow-x: hidden;
 }
 .botones button{
     cursor: pointer;
@@ -112,20 +92,38 @@
     background-color: #2D4059;
     color: #FFFFFF;
 }
-
-
+.userKnowledge{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    flex-direction: column;
+    max-height: 30vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 #topics{
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
 }
 .pairTopics{
     display: flex;
     justify-content: center;
     gap: 1rem;
+    width: 100%;
 }
-.pairTopics > input{
-    width: 30%;
+.pairTopics input{
+    width: 10%;
+    height: 2.3rem;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+}
+.pairTopics select{
+    width: 90%;
     height: 2.3rem;
     font-weight: 400;
     font-size: .9rem;
@@ -134,7 +132,6 @@
 }
 #btnAddTopic{
     background-color: rgb(60, 119, 0);
-    width: 250px;
 }
 #btnAddTopic:hover{
     background-color: rgb(44, 68, 21);
@@ -142,8 +139,43 @@
 
 #btnDeleteTopic{
     background-color: rgb(189, 0, 0);
-    width: 250px;
 }
 #btnDeleteTopic:hover{
     background-color: rgb(112, 18, 18);;
+}
+.botones{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+.botones button{
+    cursor: pointer;
+    border: none;
+    height: 3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    color: #FFFFFF;
+}
+.botonesForm{
+    justify-content: center;
+    align-items: center;
+}
+.botonesForm button{
+    cursor: pointer;
+    border: none;
+    height: 2.3rem;
+    width: 10rem;
+    font-weight: 500;
+    font-size: .9rem;
+    border-radius: .5rem;
+    background-color: #F0A500;
+    color: #FFFFFF;
+}
+.botonesForm button:hover{
+    background-color: #2D4059;
+    color: #FFFFFF;
 }

@@ -41,7 +41,7 @@ registerVancancyForm.addEventListener("submit", async (e) => {
 		const select = document.getElementById("topic_"+(index+1));
 		const idTopic = select.value;
 
-		if(topicArray.indexOf(idTopic) != -1){
+		if(topicArray.includes(parseInt(idTopic))){
 			alert(
 				"No puedes repetir los topicos requeridos, verifica e intentalo de nuevo"
 			);
