@@ -75,7 +75,6 @@
     justify-content: center;
     margin-top: 2rem;
     gap: 2rem;
-    overflow-x: hidden;
 }
 .botones button{
     cursor: pointer;
@@ -97,7 +96,6 @@
     align-items: center;
     justify-content: center;    
     flex-direction: column;
-    max-height: 30vh;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -178,4 +176,20 @@
 .botonesForm button:hover{
     background-color: #2D4059;
     color: #FFFFFF;
+}
+#dropbox{
+    height: 7rem;
+    width: 70%;
+    font-weight: 400;
+    font-size: .9rem;
+    padding-left: 1rem;
+    border: 1px solid #F0A500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dropbox img{
+    height: 3rem;
+    display: none;
 }

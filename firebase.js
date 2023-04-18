@@ -178,7 +178,12 @@ export const addTopic = async (idProfession, topicName) => {
 };
 
 export const getProfessionsTopics = async (idProfession) => {
-	const q = query(collection(db, "topics"), where("idProfession", "==", idProfession));
+	let q;
+	if(idProfession != null){
+		q = query(collection(db, "topics"), where("idProfession", "==", idProfession));
+	}else{
+		q = query(collection(db, "topics"));
+	}
 
 	return await getDocs(q);
 };
@@ -205,7 +210,7 @@ export const saveUserKnowledge = async (arrayKnowledge, username) => {
 		const userTopicRef = doc(db, "topic_users", userTopics.docs[i].id);
 		batch.delete(userTopicRef);
 	}
-	
+
 	arrayKnowledge.forEach((document) => {
 		const docRef = doc(collection(db, "topic_users"))
 		batch.set(docRef, document);
@@ -214,7 +219,7 @@ export const saveUserKnowledge = async (arrayKnowledge, username) => {
 	// Commit the batch
 	await batch.commit();
 };
-export const saveProfile = async (username, userProfession) => {
+export const saveProfile = async (username, userProfession = null, cv = null) => {
 	const q = query(collection(db, "userProfile"), where("username", "==", username));
 
 	const userProfile = await getDocs(q);
@@ -223,12 +228,26 @@ export const saveProfile = async (username, userProfession) => {
 		const userRef = doc(db, "userProfile", userProfile.docs[0].id);
 
 		return await updateDoc(userRef, {
-			userProfession: userProfession
+			userProfession: userProfession,
+			CV: cv
 		});
 	}else{
 		await addDoc(collection(db, "userProfile"), {
 			username,
-			userProfession
+			userProfession,
+			cv
 		});
 	}
+};
+
+export const getUserInfo = async (username) => {
+	const q = query(collection(db, "userProfile"), where("username", "==", username));
+
+	return await getDocs(q);
+};
+
+export const getUserKnowledge = async (username) => {
+	const q = query(collection(db, "topic_users"), where("username", "==", username));
+
+	return await getDocs(q);
 };
