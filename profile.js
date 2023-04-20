@@ -80,21 +80,22 @@ formPesos.addEventListener("submit", async (e) => {
 		});
 	}
 
-	let base64;
+	let base64 = null;
 	const files = document.getElementById("fileInput").files;
 
 	const file = files[0];
 
-	const reader = new FileReader();
-	reader.onloadend = () => {
-		base64 = reader.result.replace("data:", "").replace(/^.+,/, "");
-	};
-	reader.readAsDataURL(file);
-	await sleep(500);
+	if (file != null) {
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			base64 = reader.result.replace("data:", "").replace(/^.+,/, "");
+		};
+		reader.readAsDataURL(file);
+		await sleep(500);
+	}
 
 	// const iframePDF = document.getElementById("iframePDF");
 	// iframePDF.setAttribute("src", "data:application/pdf;base64,"+base64+"");
-
 
 	await saveProfile(
 		JSON.parse(sessionStorage.getItem("session")).username,
@@ -286,6 +287,70 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 		selectorProfession.appendChild(option);
 	}
+
+	if (userProfession) {
+		if (querySnapshotUserInfo.docs[0].data().CV != null) {
+
+			let pdf = querySnapshotUserInfo.docs[0].data().CV;
+			const fileInput = document.getElementById("fileInput");
+			const byteCharacters = atob(pdf);
+			const byteNumbers = new Array(byteCharacters.length);
+			for (let i = 0; i < byteCharacters.length; i++) {
+				byteNumbers[i] = byteCharacters.charCodeAt(i);
+			}
+			const byteArray = new Uint8Array(byteNumbers);
+			// Crear un objeto Blob a partir del archivo binario
+			const blob = new Blob([byteArray], { type: "application/pdf" });
+			// Crear un objeto File a partir del objeto Blob
+			const file = new File([blob], "CV.pdf", { type: "application/pdf" });
+			// Agregar el objeto File a la lista de archivos del elemento de entrada de archivo HTML
+			var files = [file];
+			fileInput.files = new FileListItems(files);
+
+			const img = document.createElement("img");
+			img.setAttribute("src", "img/pdf.png");
+			dropbox.innerHTML = "";
+			dropbox.appendChild(img);
+			img.style.display = "block";
+
+			const p = document.createElement("p");
+			p.innerHTML = files[0].name;
+			dropbox.appendChild(p);
+			p.style.display = "block";
+
+			img.addEventListener("click", async (e) => {
+				let base64;
+				const file = fileInput.files[0];
+
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					base64 = reader.result.replace("data:", "").replace(/^.+,/, "");
+				};
+				reader.readAsDataURL(file);
+				await sleep(500);
+
+				var objbuilder = "";
+				objbuilder +=
+					'<object width="100%" height="100%" data="data:application/pdf;base64,';
+				objbuilder += base64;
+				objbuilder += '" type="application/pdf" class="internal">';
+				objbuilder += '<embed src="data:application/pdf;base64,';
+				objbuilder += base64;
+				objbuilder += '" type="application/pdf"  />';
+				objbuilder += "</object>";
+
+				var win = window.open("#", "_blank");
+				var title = "CV-PDF";
+				win.document.write(
+					"<html><title>" +
+						title +
+						'</title><body style="margin-top: 0px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;">'
+				);
+				win.document.write(objbuilder);
+				win.document.write("</body></html>");
+			});
+		}
+	}
 });
 
 btnAddTopic.addEventListener("click", async (e) => {
@@ -402,16 +467,23 @@ dropbox.addEventListener("drop", (e) => {
 	const dt = e.dataTransfer;
 	const files = dt.files;
 
+	if (!(files[0].type === "application/pdf")) {
+		alert("Solo se permiten archivos .pdf, verifica y vuelve a intentarlo");
+	}
+
 	const fileInput = document.getElementById("fileInput");
 	fileInput.files = files;
 
 	const img = document.createElement("img");
 	img.setAttribute("src", "img/pdf.png");
-
 	dropbox.innerHTML = "";
 	dropbox.appendChild(img);
-
 	img.style.display = "block";
+
+	const p = document.createElement("p");
+	p.innerHTML = files[0].name;
+	dropbox.appendChild(p);
+	p.style.display = "block";
 
 	img.addEventListener("click", async (e) => {
 		let base64;
@@ -424,20 +496,30 @@ dropbox.addEventListener("drop", (e) => {
 		reader.readAsDataURL(file);
 		await sleep(500);
 
-		var objbuilder = '';
-		objbuilder += ('<object width="100%" height="100%" data="data:application/pdf;base64,');
-		objbuilder += (base64);
-		objbuilder += ('" type="application/pdf" class="internal">');
-		objbuilder += ('<embed src="data:application/pdf;base64,');
-		objbuilder += (base64);
-		objbuilder += ('" type="application/pdf"  />');
-		objbuilder += ('</object>');
+		var objbuilder = "";
+		objbuilder +=
+			'<object width="100%" height="100%" data="data:application/pdf;base64,';
+		objbuilder += base64;
+		objbuilder += '" type="application/pdf" class="internal">';
+		objbuilder += '<embed src="data:application/pdf;base64,';
+		objbuilder += base64;
+		objbuilder += '" type="application/pdf"  />';
+		objbuilder += "</object>";
 
-		var win = window.open("#","_blank");
+		var win = window.open("#", "_blank");
 		var title = "CV-PDF";
-		win.document.write('<html><title>'+ title +'</title><body style="margin-top: 0px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;">');
+		win.document.write(
+			"<html><title>" +
+				title +
+				'</title><body style="margin-top: 0px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;">'
+		);
 		win.document.write(objbuilder);
-		win.document.write('</body></html>');
-		layer = jQuery(win.document);
+		win.document.write("</body></html>");
 	});
 });
+
+function FileListItems(files) {
+	var b = new ClipboardEvent("").clipboardData || new DataTransfer();
+	for (var i = 0, len = files.length; i < len; i++) b.items.add(files[i]);
+	return b.files;
+}

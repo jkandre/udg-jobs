@@ -1,4 +1,4 @@
-import { getVacantsPublished, disableVacancy } from "./firebase.js";
+import { getVacantsPublished, statusVacancy } from "./firebase.js";
 
 if (sessionStorage.getItem("session") != null) {
 	if (
@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 		a.classList.add("vacante");
 
 		const title = document.createElement("h3");
-        title.classList.add("vacante_titulo");
+		title.classList.add("vacante_titulo");
 		title.innerHTML = querySnapshot.docs[i].data().title;
 
 		const payment = document.createElement("p");
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 		const btnEliminar = document.createElement("button");
 		btnEliminar.classList.add("btnDeleteTopic");
-		btnEliminar.innerHTML = "Eliminar";
+		btnEliminar.innerHTML = "Deshabilitar";
 
 		const idVacancy = document.createElement("p");
 		idVacancy.classList.add("id_vacancy");
@@ -62,11 +62,31 @@ window.addEventListener("DOMContentLoaded", async () => {
 		elements[i].addEventListener(
 			"click",
 			async (e) => {
+				e.preventDefault();
 				const parent = e.target.parentNode;
+				let status;
 
-				await disableVacancy(parseInt(parent.firstChild.innerHTML));
+				if (parent.classList.contains("disableVacancy")) {
+					status = true;
+					await statusVacancy(parseInt(parent.firstChild.innerHTML), status);
 
-				parent.remove();
+					parent.lastElementChild.innerHTML = "Deshabilitar";
+
+					parent.lastElementChild.classList.add("btnDeleteTopic");
+					parent.lastElementChild.classList.remove("btnAddTopic");
+
+					parent.classList.remove("disableVacancy");
+				} else {
+					status = false;
+					await statusVacancy(parseInt(parent.firstChild.innerHTML), status);
+
+					parent.lastElementChild.innerHTML = "Habilitar";
+
+					parent.lastElementChild.classList.remove("btnDeleteTopic");
+					parent.lastElementChild.classList.add("btnAddTopic");
+
+					parent.classList.add("disableVacancy");
+				}
 			},
 			false
 		);

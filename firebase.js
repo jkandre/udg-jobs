@@ -150,7 +150,7 @@ export const saveVacancy = async (title, payment, time, description, idVacancy, 
 	});
 };
 
-export const disableVacancy = async (idVacancy) => {
+export const statusVacancy = async (idVacancy, status) => {
 	const q = query(collection(db, "vacancy"), where("idVacancy", "==", idVacancy));
 
 	const vacancyId = await getDocs(q);
@@ -159,7 +159,7 @@ export const disableVacancy = async (idVacancy) => {
 		const vacancyRef = doc(db, "vacancy", vacancyId.docs[0].id);
 
 		return await updateDoc(vacancyRef, {
-			isActive: false
+			isActive: status
 		});
 	}
 };

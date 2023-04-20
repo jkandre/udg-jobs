@@ -178,7 +178,7 @@
     color: #FFFFFF;
 }
 #dropbox{
-    height: 7rem;
+    height: 10rem;
     width: 70%;
     font-weight: 400;
     font-size: .9rem;
@@ -191,5 +191,8 @@
 
 #dropbox img{
     height: 3rem;
+    display: none;
+}
+#dropbox p{
     display: none;
 }
