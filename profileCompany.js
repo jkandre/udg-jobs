@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 	for (let i = 0; i < querySnapshot.docs.length; i++) {
 		const a = document.createElement("a");
 		a.classList.add("vacante");
+		a.setAttribute("href", "detallesVacante.html?id="+querySnapshot.docs[i].data().idVacancy+"");
 
 		const title = document.createElement("h3");
 		title.classList.add("vacante_titulo");
