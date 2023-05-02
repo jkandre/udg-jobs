@@ -258,3 +258,19 @@ export const getVacancyDetails = async (idVacancy) => {
 
 	return await getDocs(q);
 };
+
+export const getCandidatesUsernames = async (idVacancy) => {
+	const q = query(collection(db, "applications"), where("idVacancy", "==", idVacancy));
+
+	const querySnapshot = await getDocs(q);
+
+	let usernamesArray = [];
+
+	querySnapshot.forEach((doc) => {
+		usernamesArray.push(doc.data().username);
+	});
+
+	const users = query(collection(db, "users"), where("username", "in", usernamesArray));
+
+	return await getDocs(users);
+};

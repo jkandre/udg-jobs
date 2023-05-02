@@ -26,6 +26,9 @@
     border: 0;
     border-radius: 5px;
 }
+.vacante_descripcion{
+    overflow-y: scroll;
+}
 .btnDeleteTopic{
     background-color: rgb(189, 0, 0);
 }
@@ -37,6 +40,9 @@
     width: 50%;
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    overflow-y: scroll;
 }
 .id_vacancy{
     display: none;
@@ -45,4 +51,49 @@
     display: flex;
     gap: 10px;
     flex-direction: row;
+}
+.disableVacancy{
+    background-color: #d3d3d3;
+}
+.btnAddTopic{
+    background-color: rgb(60, 119, 0);
+}
+.btnAddTopic:hover{
+    background-color: rgb(44, 68, 21);
+    cursor: pointer;
+}
+
+/*Codigo para las tarjetas de aspirantes*/
+.candidate{
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    justify-content: flex-start;
+    padding: 1.3rem;
+    min-height: 25vh;
+    max-height: 35vh;
+    overflow: hidden;
+    text-decoration: none;
+}
+.pairCandidate{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.candidate:hover{
+    border: 1px solid #F0A500;
+    cursor: pointer;
+}
+.candidate h3{
+    font-weight: 800;
+}
+
+.contenedorVacante{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
