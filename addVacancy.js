@@ -64,6 +64,7 @@ registerVancancyForm.addEventListener("submit", async (e) => {
 		);
 		return;
 	}
+	const profession = registerVancancyForm["profession"];
 
 	let objTopics = [];
 	for (let index = 0; index < topicArray.length; index++) {
@@ -71,17 +72,19 @@ registerVancancyForm.addEventListener("submit", async (e) => {
 			idTopic: topicArray[index],
 			rateNeeded: topicRate[index], 
 			idVacancy: parseInt(querySnapshotID.docs[0].data().idVacancy) + 1,
-			idCompany: parseInt(JSON.parse(sessionStorage.getItem("session")).idCompany)
+			idCompany: parseInt(JSON.parse(sessionStorage.getItem("session")).idCompany),
+			idProfession: parseInt(profession.value)
 		})
 	}
 
 	await saveVacancy(
 		tittle.value,
-		payment.value,
-		time.value,
+		parseFloat(payment.value),
+		parseInt(time.value),
 		description.value,
 		parseInt(querySnapshotID.docs[0].data().idVacancy) + 1,
-		parseInt(JSON.parse(sessionStorage.getItem("session")).idCompany)
+		parseInt(JSON.parse(sessionStorage.getItem("session")).idCompany),
+		parseInt(profession.value)
 	);
 
 	await saveVacancyRequirements(objTopics);

@@ -138,7 +138,7 @@ export const getVacancyID = async () => {
 	return await getDocs(q);
 };
 
-export const saveVacancy = async (title, payment, time, description, idVacancy, idCompany) => {
+export const saveVacancy = async (title, payment, time, description, idVacancy, idCompany, idProfession) => {
 	await addDoc(collection(db, "vacancy"), {
 		title,
 		payment,
@@ -146,6 +146,7 @@ export const saveVacancy = async (title, payment, time, description, idVacancy, 
 		description,
 		idVacancy,
 		idCompany,
+		idProfession,
 		isActive: true
 	});
 };
@@ -273,4 +274,23 @@ export const getCandidatesUsernames = async (idVacancy) => {
 	const users = query(collection(db, "users"), where("username", "in", usernamesArray));
 
 	return await getDocs(users);
+};
+
+export const validateApplication = async (username, idVacancy) => {
+	const q = query(collection(db, "applications"), where("username", "==", username), where("idVacancy", "==", idVacancy));
+
+	return await getDocs(q);
+};
+
+export const saveApplication = async (username, idVacancy) => {
+	await addDoc(collection(db, "applications"), {
+		username,
+		idVacancy
+	});
+};
+
+export const getVacantsSalary = async () => {
+	const q = query(collection(db, "vacancy"), orderBy("payment", "desc"));
+	
+	return await getDocs(q);
 };

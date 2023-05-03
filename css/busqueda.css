@@ -80,6 +80,11 @@
     flex-direction: column;
     overflow-y: scroll;
 }
+.pairsResultado{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
 .applyButton{
     cursor: pointer;
     border: 1px solid #F0A500;
@@ -98,7 +103,7 @@
     color: #FFFFFF;
 }
 .id_vacancy{
-    display: none;
+    
 }
 .titulos{
     font-weight: bold;

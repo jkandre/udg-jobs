@@ -54,17 +54,17 @@
 				<div class="empleos_orden">
 					<p>Ordenar por:</p>
 					<div class="orden_opciones">
-						<form action="" method="get">
+						<form id="algorithmSearchBtn">
 							<input type="hidden" name="id" value="1" />
 							<input type="hidden" name="busqAlg" value="1" />
 							<button type="submit" name="btnAlg">Algoritmo</button>
 						</form>
-						<form action="" method="get">
+						<!-- <form action="" method="get">
 							<input type="hidden" name="id" value="1" />
 							<input type="hidden" name="busqFecha" value="1" />
 							<button type="submit" name="btnFecha">Fecha</button>
-						</form>
-						<form action="" method="get">
+						</form> -->
+						<form id="salarySearchBtn">
 							<input type="hidden" name="id" value="1" />
 							<input type="hidden" name="busqSueldo" value="1" />
 							<button type="submit" name="btnSueldo">Sueldo</button>
@@ -130,12 +130,26 @@
 					<div class="detalle_resultado" id="vacancyDetail">
 						
 						<h3 class="titulos"></h3>
-						<p class="vacante_subtitulos">Nombre empresa</p>
-						<p class="vacante_descripcion"></p>
-						<p class="vacante_descripcion"></p>
-						<p class="vacante_descripcion"></p>
+						<!-- TODOOOOOOO traer el nombre de la empresa -->
+						<div class="pairsResultado">
+							<p class="vacante_subtitulos"></p>
+							<p class="vacante_descripcion"></p>
+						</div>
+						<div class="pairsResultado">
+							<p class="vacante_subtitulos">Salario: </p>
+							<p class="vacante_descripcion"></p>
+						</div>
+						<div class="pairsResultado">
+							<p class="vacante_subtitulos">Jornada: </p>
+							<p class="vacante_descripcion"></p>
+						</div>
+						<div class="">
+							<p class="vacante_subtitulos">Descripcion: </p>
+							<p class="vacante_descripcion" style="overflow-y: scroll;"></p>
+						</div>
+						
 
-						<button class="applyButton">Aplica ahora!</button>
+						<button class="applyButton" id="applyVacancyBtn">Aplica ahora!</button>
 					</div>
 				</div>
 			</div>
