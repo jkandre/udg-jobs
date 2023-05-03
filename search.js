@@ -4,6 +4,9 @@ import {
 	saveApplication,
 	getVacantsSalary,
 	getUserInfo,
+	getUserKnowledge,
+	getProfessionsTopics,
+	getVacantWeights
 } from "./firebase.js";
 
 if (sessionStorage.getItem("session") != null) {
@@ -356,6 +359,11 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 		return false;
 	}
 
+	let querySnapshotUserKnowledge = await getUserKnowledge(
+		JSON.parse(sessionStorage.getItem("session")).username
+	);
+	let topicsProfession = await getProfessionsTopics(querySnapshotProfessionID.docs[0].data().userProfession);
+
 	let firstOccurs = false;
 
 	for (let i = 0; i < querySnapshot.docs.length; i++) {
@@ -363,6 +371,27 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 			querySnapshot.docs[i].data().idProfession ===
 			querySnapshotProfessionID.docs[0].data().userProfession
 		) {
+
+
+			let querySnapshotWeightsVacant = await getVacantWeights(querySnapshot.docs[i].data().idVacancy);
+			
+			let arrayWeightsNeeded = [];
+
+			querySnapshotWeightsVacant.forEach(topicNeeded => {
+				arrayWeightsNeeded.push({
+					"idTopic": topicNeeded.data().idTopic,
+					"rateNeeded": topicNeeded.data().rateNeeded
+				})
+			});
+
+			console.log(querySnapshotWeightsVacant.docs);
+
+			if(!(querySnapshotWeightsVacant.docs.length >= topicsProfession.docs.length)){
+				topicsProfession.forEach(topicProfessionDoc => {
+					
+				});
+			}
+			
 			const a = document.createElement("a");
 			a.classList.add("resultados_vacante");
 
@@ -390,9 +419,9 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 			desc.innerHTML =
 				"Descripcion: " + querySnapshot.docs[i].data().description;
 
-			const idVacancy = document.createElement("input");
-			idVacancy.setAttribute("value", querySnapshot.docs[i].data().idVacancy);
+			const idVacancy = document.createElement("p");
 			idVacancy.classList.add("id_vacancy");
+			idVacancy.innerHTML = querySnapshot.docs[i].data().idVacancy;
 
 			vacanciesDiv.appendChild(a);
 			a.appendChild(divtitle);
@@ -450,7 +479,7 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 				e.currentTarget.classList.add("a_selected");
 
 				let search = parseInt(
-					e.currentTarget.querySelector(".id_vacancy").value
+					e.currentTarget.querySelector(".id_vacancy").innerHTML
 				);
 
 				querySnapshot.forEach((doc) => {

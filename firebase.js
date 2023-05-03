@@ -294,3 +294,9 @@ export const getVacantsSalary = async () => {
 	
 	return await getDocs(q);
 };
+
+export const getVacantWeights = async (idVacancy) => {
+	const q = query(collection(db, "vacancyRequeriments"), where("idVacancy", "==", idVacancy), );
+	
+	return await getDocs(q);
+};
