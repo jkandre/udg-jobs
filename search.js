@@ -371,26 +371,31 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 			querySnapshot.docs[i].data().idProfession ===
 			querySnapshotProfessionID.docs[0].data().userProfession
 		) {
-
-
-			let querySnapshotWeightsVacant = await getVacantWeights(querySnapshot.docs[i].data().idVacancy);
+			let querySnapshotWeightsVacant = await getVacantWeights(parseInt(querySnapshot.docs[i].data().idVacancy));
 			
 			let arrayWeightsNeeded = [];
+			let topicsUser = [];
 
 			querySnapshotWeightsVacant.forEach(topicNeeded => {
 				arrayWeightsNeeded.push({
 					"idTopic": topicNeeded.data().idTopic,
 					"rateNeeded": topicNeeded.data().rateNeeded
 				})
+				topicsUser.push(topicNeeded.data().idTopic);
 			});
-
-			console.log(querySnapshotWeightsVacant.docs);
 
 			if(!(querySnapshotWeightsVacant.docs.length >= topicsProfession.docs.length)){
 				topicsProfession.forEach(topicProfessionDoc => {
-					
+					if(!topicsUser.includes(topicProfessionDoc.data().idTopic)){
+						arrayWeightsNeeded.push({
+							"idTopic": topicProfessionDoc.data().idTopic,
+							"rateNeeded": 0
+						})
+					}
 				});
 			}
+
+			//Implementar un modelo
 			
 			const a = document.createElement("a");
 			a.classList.add("resultados_vacante");
