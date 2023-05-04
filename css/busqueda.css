@@ -103,7 +103,7 @@
     color: #FFFFFF;
 }
 .id_vacancy{
-    
+    display: none;
 }
 .titulos{
     font-weight: bold;
@@ -151,4 +151,13 @@
 }
 .vacante_subtitulos{
     font-weight: bold;
+}
+.highProbability{
+    background-color: #bdd1eb;
+}
+.mediumrobability{
+    background-color: #e6b985;
+}
+.lowProbability{
+    background-color: #faa1a1;
 }

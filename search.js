@@ -6,7 +6,8 @@ import {
 	getUserInfo,
 	getUserKnowledge,
 	getProfessionsTopics,
-	getVacantWeights
+	getVacantWeights,
+	getUserTopics
 } from "./firebase.js";
 
 if (sessionStorage.getItem("session") != null) {
@@ -349,7 +350,7 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 
 	//Solo obtener las que son de la profesion del user
 	let username = JSON.parse(sessionStorage.getItem("session")).username;
-
+	
 	let querySnapshotProfessionID = await getUserInfo(username);
 
 	if (!querySnapshotProfessionID.docs.length > 0) {
@@ -372,28 +373,121 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 			querySnapshotProfessionID.docs[0].data().userProfession
 		) {
 
-
 			let querySnapshotWeightsVacant = await getVacantWeights(querySnapshot.docs[i].data().idVacancy);
 			
 			let arrayWeightsNeeded = [];
+			let arrayWeightsNeededTopicId = [];
 
+			//Llenar los topicos de la vacante
 			querySnapshotWeightsVacant.forEach(topicNeeded => {
 				arrayWeightsNeeded.push({
 					"idTopic": topicNeeded.data().idTopic,
 					"rateNeeded": topicNeeded.data().rateNeeded
 				})
+				arrayWeightsNeededTopicId.push(topicNeeded.data().idTopic);
 			});
 
-			console.log(querySnapshotWeightsVacant.docs);
-
-			if(!(querySnapshotWeightsVacant.docs.length >= topicsProfession.docs.length)){
+			//Llenar los topicos faltantes con 0
+			if(topicsProfession.docs.length > querySnapshotWeightsVacant.docs.length){
 				topicsProfession.forEach(topicProfessionDoc => {
-					
+					if(!arrayWeightsNeededTopicId.includes(topicProfessionDoc.data().idTopic)){
+						arrayWeightsNeeded.push({
+							"idTopic": topicProfessionDoc.data().idTopic,
+							"rateNeeded": 0
+						})
+						arrayWeightsNeededTopicId.push(topicProfessionDoc.data().idTopic);
+					}
 				});
 			}
-			
+
+			var modelo = null;
+			//Cargar modelo
+			(async () => {
+				console.log("Cargando modelo...");
+				modelo = await tf.loadLayersModel("models/model_idVacancy"+querySnapshot.docs[i].data().idVacancy+".json");
+				console.log("Modelo cargado...");
+			})();
+
+			//Cargar los conocimietos del usuario
+			let arrayWeightsUser = [];
+			let arrayWeightsUserTopicId = [];
+			querySnapshotUserKnowledge.forEach(topicKnowledge => {
+				arrayWeightsUser.push({
+					"idTopic": topicKnowledge.data().idTopic,
+					"rateNeeded": topicKnowledge.data().knowledge
+				})
+				arrayWeightsUserTopicId.push(topicKnowledge.data().idTopic);
+			});
+			//Llenar los topicos faltantes con 0
+			if(topicsProfession.docs.length > querySnapshotUserKnowledge.docs.length){
+				topicsProfession.forEach(topicProfessionDoc => {
+					if(!arrayWeightsUserTopicId.includes(topicProfessionDoc.data().idTopic)){
+						arrayWeightsUser.push({
+							"idTopic": topicProfessionDoc.data().idTopic,
+							"rateNeeded": 0
+						})
+						arrayWeightsUserTopicId.push(topicProfessionDoc.data().idTopic);
+					}
+				});
+			}
+
+			console.log(arrayWeightsNeeded);
+			console.log(arrayWeightsUser);
+
+			let tensorUser = [];
+
+			arrayWeightsNeeded.forEach(obj => {
+				arrayWeightsUser.forEach(objUser => {
+					if(obj["idTopic"] == objUser["idTopic"]){
+						tensorUser.push(objUser["rateNeeded"]*0.1)
+					}
+				});
+			});
+
+			console.log(tensorUser);
+
 			const a = document.createElement("a");
 			a.classList.add("resultados_vacante");
+
+			//Esperar para cargar el modelo y probar la salida
+			setTimeout(() => {
+				const x_test = tf.tensor2d([tensorUser]);
+				const prediction = modelo.predict(x_test);
+				console.log(prediction.dataSync());  // Imprimir la predicción
+
+				var result = prediction.dataSync().indexOf(Math.max(...prediction.dataSync()));
+
+				switch (result) {
+					case 0:
+						a.style.backgroundColor = "#bdd1eb";
+						break;
+					case 1:
+						a.style.backgroundColor = "#e6b985";
+						break;
+					case 2:
+						a.style.backgroundColor = "#faa1a1";
+						break;			
+					default:
+						break;
+				}
+			}, 1000);
+
+			
+
+			// var result = predicctionArray.indexOf(Math.max(...predicctionArray));
+			// switch (result) {
+			// 	case 0:
+			// 		a.classList.add("highProbability");
+			// 		break;
+			// 	case 1:
+			// 		a.classList.add("mediumProbability");
+			// 		break;
+			// 	case 2:
+			// 		a.classList.add("lowProbability");
+			// 		break;			
+			// 	default:
+			// 		break;
+			// }
 
 			const divtitle = document.createElement("div");
 			divtitle.classList.add("nombreFecha");

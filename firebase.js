@@ -221,7 +221,7 @@ export const saveUserKnowledge = async (arrayKnowledge, username) => {
 	await batch.commit();
 };
 
-export const saveProfile = async (username, userProfession = null, cv = null) => {
+export const saveProfile = async (username, userProfession = null, CV = null) => {
 	const q = query(collection(db, "userProfile"), where("username", "==", username));
 
 	const userProfile = await getDocs(q);
@@ -231,13 +231,13 @@ export const saveProfile = async (username, userProfession = null, cv = null) =>
 
 		return await updateDoc(userRef, {
 			userProfession: userProfession,
-			CV: cv
+			CV: CV
 		});
 	}else{
 		await addDoc(collection(db, "userProfile"), {
 			username,
 			userProfession,
-			cv
+			CV
 		});
 	}
 };
@@ -296,7 +296,7 @@ export const getVacantsSalary = async () => {
 };
 
 export const getVacantWeights = async (idVacancy) => {
-	const q = query(collection(db, "vacancyRequeriments"), where("idVacancy", "==", idVacancy), );
+	const q = query(collection(db, "vacancyRequirements"), where("idVacancy", "==", idVacancy), );
 	
 	return await getDocs(q);
 };

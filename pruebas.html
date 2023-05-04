@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<title>File(s) size</title>
+
+		<style type="text/css">
+			body {
+				background-color: red;
+			}
+		</style>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+	</head>
+
+	<body>
+		<h1>prueba</h1>
+
+		<script type="module">
+			// Importar TensorFlow.js
+			// import * as tf from '@tensorflow/tfjs';
+			var modelo = null;
+			//Cargar modelo
+			// (async () => {
+			// 	console.log("Cargando modelo...");
+			// 	modelo = await tf.loadLayersModel("models/my-model.json");
+			// 	console.log("Modelo cargado...");
+			// })().then(
+				
+			// );
+
+
+			// // Definir el modelo Adaline
+			// const model = tf.sequential();
+			// model.add(tf.layers.dense({inputShape: [3], units: 3, activation: 'linear'}));
+			// model.add(tf.layers.dense({units: 3, activation: 'softmax'}));
+
+			// // Compilar el modelo
+			// model.compile({loss: 'categoricalCrossentropy', optimizer: 'sgd', metrics: ['accuracy']});
+
+			// // Definir los datos de entrenamiento
+			// const x_train = tf.tensor2d([
+			//     [0.7, 0.6, 0.5],
+			//     [0.4, 0.5, 0.3],
+			//     [0.8, 0.7, 0.4],
+			//     [0.8, 0.4, 0.7],
+			//     [0.2, 0.7, 0.9],
+			//     [0.4, 0.3, 0.4],
+			//     [0.9, 0.8, 0.7],
+			//     [0.6, 0.3, 0.5],
+			//     [0.4, 0.9, 0.3],
+			//     [0.8, 0.2, 0.8],
+			//     [0.5, 0.0, 0.2],
+			//     [0.9, 0.9, 0.4],
+			//     [0.9, 0.8, 0.8],
+			//     [0.8, 0.7, 0.9],
+			//     [0.8, 0.9, 0.0],
+			//     [0.6, 0.9, 0.1],
+			//     [0.5, 0.5, 0.6]
+			// ]);
+			// const y_train = tf.tensor2d([
+			//     [1, 0, 0],
+			// 	[0, 0, 1],
+			// 	[1, 0, 0],
+			// 	[1, 0, 0],
+			// 	[1, 0, 0],
+			// 	[0, 0, 1],
+			// 	[1, 0, 0],
+			// 	[0, 0, 1],
+			// 	[0, 1, 0],
+			// 	[1, 0, 0],
+			// 	[0, 0, 1],
+			// 	[1, 0, 0],
+			// 	[1, 0, 0],
+			// 	[1, 0, 0],
+			// 	[1, 0, 0],
+			// 	[0, 1, 0],
+			// 	[0, 1, 0],
+			// ]);
+
+			// // Entrenar el modelo
+			// const history = await model.fit(x_train, y_train, {epochs: 1000});
+
+			// Realizar una predicción
+
+			// setTimeout(() => {
+			// 	const x_test = tf.tensor2d([[0.2, 0.2, 0.6]]);
+			// 	const prediction = modelo.predict(x_test);
+			// 	console.log(prediction.dataSync());  // Imprimir la predicción
+			// }, 3000);
+
+
+			// const x_test = tf.tensor2d([[0.2, 0.2, 0.6]]);
+			// const prediction = model.predict(x_test);
+			// console.log(prediction.dataSync());  // Imprimir la predicción
+
+			// await model.save('http://model-server.domain/upload')	
+
+
+			
+			
+
+		</script>
+
+
+		<script type="module">
+			import {
+				getVacants,
+				validateApplication,
+				saveApplication,
+				getVacantsSalary,
+				getUserInfo,
+				getUserKnowledge,
+				getProfessionsTopics,
+				getVacantWeights,
+				getUserTopics
+			} from "./firebase.js";
+
+
+
+			const vacants = await getVacants();
+			
+			vacants.forEach(async (element) => {
+
+				let topicsProfession = await getProfessionsTopics(element.data().idProfession);
+				let querySnapshotWeightsVacant = await getVacantWeights(element.data().idVacancy);
+
+				let arrayWeightsNeeded = [];
+				let arrayWeightsNeededTopicId = [];
+
+				//Cargar un objeto con los topicos y lo requerido por la vacante
+				querySnapshotWeightsVacant.forEach(topicNeeded => {
+					arrayWeightsNeeded.push({
+						"idTopic": topicNeeded.data().idTopic,
+						"rateNeeded": topicNeeded.data().rateNeeded
+					})
+					arrayWeightsNeededTopicId.push(topicNeeded.data().idTopic);
+				});
+
+				//Llenar topicos con 0 en caso de que la vacante tenga menos
+				if(topicsProfession.docs.length > querySnapshotWeightsVacant.docs.length){
+					topicsProfession.forEach(topicProfessionDoc => {
+						if(!arrayWeightsNeededTopicId.includes(topicProfessionDoc.data().idTopic)){
+							arrayWeightsNeeded.push({
+								"idTopic": topicProfessionDoc.data().idTopic,
+								"rateNeeded": 0
+							})
+							arrayWeightsNeededTopicId.push(topicProfessionDoc.data().idTopic);
+						}
+					});
+				}
+
+				let tensor2d = [];
+				let salidaEsperada = Array(100).fill(Array(3));
+
+				//llenamos los datos de prueba
+				for (let i = 0; i < 100; i++) {
+					tensor2d[i] = [];
+					for (let j = 0; j < topicsProfession.docs.length; j++) {
+						tensor2d[i][j] = Math.random();
+					}
+				}
+
+				let sumatoria = 0;
+				let diferencia = 0;
+				let rechazado = 0;
+				for (let i = 0; i < 100; i++) {
+					sumatoria = 0;
+					diferencia = 0;
+					rechazado = 0;
+
+
+					if(tensor2d[i][0] >= arrayWeightsNeeded[0].rateNeeded*0.1){
+						sumatoria++;
+					}else{
+						if(tensor2d[i][0] >= (arrayWeightsNeeded[0].rateNeeded-1.5)*0.1){
+							diferencia++;
+						}else{
+							rechazado++;
+						}
+					}
+
+					if(tensor2d[i][1] >= arrayWeightsNeeded[1].rateNeeded*0.1){
+						sumatoria++;
+					}else{
+						if(tensor2d[i][1] >= (arrayWeightsNeeded[0].rateNeeded-1.5)*0.1){
+							diferencia++;
+						}else{
+							rechazado++;
+						}
+					}
+
+					if(tensor2d[i][2] >= arrayWeightsNeeded[2].rateNeeded*0.1){
+						sumatoria++;
+					}else{
+						if(tensor2d[i][2] >= (arrayWeightsNeeded[0].rateNeeded-1.5)*0.1){
+							diferencia++;
+						}else{
+							rechazado++;
+						}
+					}
+
+					if(sumatoria >= 2){
+						salidaEsperada[i] = new Array(1,0,0);
+					}else if(sumatoria >= 1){
+						salidaEsperada[i] = new Array(0,1,0);
+					}else{
+						salidaEsperada[i] = new Array(0,0,1);
+					}
+				}
+
+				const model = tf.sequential();
+				model.add(tf.layers.dense({inputShape: [3], units: 3, activation: 'linear'}));
+				model.add(tf.layers.dense({units: 3, activation: 'softmax'}));
+
+				// Compilar el modelo
+				model.compile({loss: 'categoricalCrossentropy', optimizer: 'sgd', metrics: ['accuracy']});
+
+				// Definir los datos de entrenamiento
+				const x_train = tf.tensor2d(tensor2d);
+				const y_train = tf.tensor2d(salidaEsperada);
+
+				// Entrenar el modelo
+				const history = await model.fit(x_train, y_train, {epochs: 1000});
+
+
+				const x_test = tf.tensor2d([[0.7, 0.7, 0.6]]);
+				const prediction = model.predict(x_test);
+				console.log(prediction.dataSync());  // Imprimir la predicción
+
+				// await model.save('downloads://model_idVacancy'+element.data().idVacancy);
+				
+
+
+			});
+		</script>
+	</body>
+</html>
