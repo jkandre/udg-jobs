@@ -373,8 +373,6 @@ algorithmSearchBtn.addEventListener("click", async (e) => {
 			querySnapshotProfessionID.docs[0].data().userProfession
 		) {
 			let querySnapshotWeightsVacant = await getVacantWeights(parseInt(querySnapshot.docs[i].data().idVacancy));
-
-			let querySnapshotWeightsVacant = await getVacantWeights(querySnapshot.docs[i].data().idVacancy);
 			
 			let arrayWeightsNeeded = [];
 			let arrayWeightsNeededTopicId = [];
